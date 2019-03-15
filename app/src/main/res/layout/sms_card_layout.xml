@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_margin="16dp">
+
+    <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="10dp">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="32dp"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/senderLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="EvoBanco"/>
+
+            <TextView
+                    android:id="@+id/messageLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ligula neque, egestas vitae mauris quis, luctus blandit quam. Fusce vehicula diam a varius aliquet. Suspendisse suscipit congue metus, eu finibus lectus maximus sed. Nullam eget enim semper, ornare magna in, tincidunt ante. Aliquam porttitor accumsan varius. Curabitur nec convallis erat. Pellentesque non sagittis justo. Nam ullamcorper arcu non aliquet iaculis. Pellentesque cursus turpis a semper porttitor. Maecenas felis tortor, interdum non libero ut, egestas euismod sem."/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>
