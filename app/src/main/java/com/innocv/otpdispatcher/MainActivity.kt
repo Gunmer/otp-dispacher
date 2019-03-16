@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,18 +14,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
     override fun onResume() {
         super.onResume()
 
-        val smsMessage = SmsMessage(
-            "EvoBanco",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ligula neque, egestas vitae mauris quis, luctus blandit quam. Fusce vehicula diam a varius aliquet. Suspendisse suscipit congue metus, eu finibus lectus maximus sed. Nullam eget enim semper, ornare magna in, tincidunt ante. Aliquam porttitor accumsan varius. Curabitur nec convallis erat. Pellentesque non sagittis justo. Nam ullamcorper arcu non aliquet iaculis. Pellentesque cursus turpis a semper porttitor. Maecenas felis tortor, interdum non libero ut, egestas euismod sem."
-        )
-
-        val messages = Collections.nCopies(10, smsMessage)
-
-        messagesRecyclerView.adapter = SmsMessageAdapter(messages)
+        messagesRecyclerView.adapter = OtpMessageAdapter()
         messagesRecyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    @Subscribe
+    fun onSmsMessageEvent(otpMessageEvent: OtpMessageEvent) {
+        (messagesRecyclerView.adapter as OtpMessageAdapter).addSmsMessage(otpMessageEvent.otpMessage)
+    }
+
+    override fun onStop() {
+        EventBus.getDefault().unregister(this)
+        super.onStop()
     }
 
 }

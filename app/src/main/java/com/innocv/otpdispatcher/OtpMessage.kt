@@ -1,6 +1,6 @@
 package com.innocv.otpdispatcher
 
-data class SmsMessage(
+data class OtpMessage(
     val sender: String,
     val message: String
 )

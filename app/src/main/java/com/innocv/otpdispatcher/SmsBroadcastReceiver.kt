@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.telephony.SmsMessage
 import android.util.Log
+import org.greenrobot.eventbus.EventBus
 
 class SmsBroadcastReceiver : BroadcastReceiver() {
 
@@ -21,6 +22,9 @@ class SmsBroadcastReceiver : BroadcastReceiver() {
                 val messageBody = message.displayMessageBody
 
                 Log.d("SmsBroadcastReceiver", "$phoneNumber: $messageBody)")
+
+                val otpMessage = OtpMessage(phoneNumber, messageBody)
+                EventBus.getDefault().post(OtpMessageEvent(otpMessage))
             }
         } catch (e: Exception) {
             Log.e("SmsBroadcastReceiver", e.localizedMessage, e)

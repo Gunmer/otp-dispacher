@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
-            android:background="@android:color/darker_gray"
+            android:background="@color/colorPrimary"
             tools:listitem="@layout/sms_card_layout">
 
     </android.support.v7.widget.RecyclerView>
