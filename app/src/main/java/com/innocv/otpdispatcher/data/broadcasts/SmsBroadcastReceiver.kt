@@ -1,10 +1,12 @@
-package com.innocv.otpdispatcher
+package com.innocv.otpdispatcher.data.broadcasts
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.telephony.SmsMessage
 import android.util.Log
+import com.innocv.otpdispatcher.domain.OtpMessage
+import com.innocv.otpdispatcher.domain.events.OtpMessageEvent
 import org.greenrobot.eventbus.EventBus
 
 class SmsBroadcastReceiver : BroadcastReceiver() {

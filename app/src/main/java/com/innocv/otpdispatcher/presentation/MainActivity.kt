@@ -1,8 +1,11 @@
-package com.innocv.otpdispatcher
+package com.innocv.otpdispatcher.presentation
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import com.innocv.otpdispatcher.R
+import com.innocv.otpdispatcher.domain.events.OtpMessageEvent
+import com.innocv.otpdispatcher.presentation.adapters.OtpMessageAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

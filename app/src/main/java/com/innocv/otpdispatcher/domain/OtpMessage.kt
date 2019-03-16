@@ -1,4 +1,4 @@
-package com.innocv.otpdispatcher
+package com.innocv.otpdispatcher.domain
 
 data class OtpMessage(
     val sender: String,
