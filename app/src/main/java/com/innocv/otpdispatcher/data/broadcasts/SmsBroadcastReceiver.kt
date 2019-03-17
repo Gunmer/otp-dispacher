@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 
 class SmsBroadcastReceiver : BroadcastReceiver() {
+    private val validSender = listOf("EVObanco", "BIZUM", "HALCASH")
 
     override fun onReceive(context: Context?, intent: Intent?) {
         try {
@@ -28,12 +29,15 @@ class SmsBroadcastReceiver : BroadcastReceiver() {
                 val phoneNumber = message.displayOriginatingAddress
                 val messageBody = message.displayMessageBody
 
-                Log.d("SmsBroadcastReceiver", "$phoneNumber: $messageBody)")
+                if (validSender.contains(phoneNumber)) {
 
-                val otpMessage = OtpMessage(phoneNumber, messageBody)
-                EventBus.getDefault().post(OtpMessageEvent(otpMessage))
+                    Log.d("SmsBroadcastReceiver", "$phoneNumber: $messageBody)")
 
-                postMessageToSlack(otpMessage)
+                    val otpMessage = OtpMessage(phoneNumber, messageBody)
+                    EventBus.getDefault().post(OtpMessageEvent(otpMessage))
+
+                    postMessageToSlack(otpMessage)
+                }
             }
         } catch (e: Exception) {
             Log.e("SmsBroadcastReceiver", e.localizedMessage, e)
