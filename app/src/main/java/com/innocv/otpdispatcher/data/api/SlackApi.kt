@@ -7,7 +7,7 @@ import retrofit2.http.POST
 
 interface SlackApi {
 
-    @POST("services/T4YL8A9QT/BH2KTK2MU/3DabkoBlXicfql5QbzxGWW2n")
+    @POST("services/T80G4P1R8/BH2KR4F0F/63u0jMeZuLfqEUM56VeMeIs2")
     fun postMessageAsync(@Body slackMessage: SlackMessage): Deferred<String>
 
 }
