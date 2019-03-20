@@ -8,17 +8,17 @@ import android.util.Log
 import com.innocv.otpdispatcher.data.RetrofitApiFactory
 import com.innocv.otpdispatcher.data.repositories.SlackRepository
 import com.innocv.otpdispatcher.domain.OtpMessage
-import com.innocv.otpdispatcher.domain.events.OtpMessageEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.greenrobot.eventbus.EventBus
 
 class SmsBroadcastReceiver : BroadcastReceiver() {
-    private val validSender = listOf("EVObanco", "BIZUM", "HALCASH")
+    private val validSender = listOf("evobanco", "bizum", "halcash")
 
     override fun onReceive(context: Context?, intent: Intent?) {
         try {
+            Log.d("SmsBroadcastReceiver", "Enter in BroadcastReceiver")
+
             val bundle = intent?.extras ?: throw RuntimeException("Bundle is NULL")
             val pdusObjs = bundle.get("pdus") as? Array<*> ?: throw RuntimeException("PdusObjs is NULL")
             val format = bundle.getString("format")
@@ -26,15 +26,14 @@ class SmsBroadcastReceiver : BroadcastReceiver() {
             pdusObjs.forEach {
                 val byteArray = it as ByteArray
                 val message = SmsMessage.createFromPdu(byteArray, format)
-                val phoneNumber = message.displayOriginatingAddress
+                val sender = message.displayOriginatingAddress.toLowerCase()
                 val messageBody = message.displayMessageBody
 
-                if (validSender.contains(phoneNumber)) {
+                if (validSender.contains(sender)) {
 
-                    Log.d("SmsBroadcastReceiver", "$phoneNumber: $messageBody)")
+                    Log.d("SmsBroadcastReceiver", "$sender: $messageBody)")
 
-                    val otpMessage = OtpMessage(phoneNumber, messageBody)
-                    EventBus.getDefault().post(OtpMessageEvent(otpMessage))
+                    val otpMessage = OtpMessage(sender, messageBody)
 
                     postMessageToSlack(otpMessage)
                 }
